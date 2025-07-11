@@ -1,7 +1,6 @@
 # 🔊 Connect Alexa with Home Assistant – with Voice ID & Script Selection
 
-Welcome to your private Alexa Skill "Smarthome ID"! This skill lets you trigger specific Home Assistant scripts using natural voice commands like “Alexa, ask Smarthome ID to turn on the lights” — **only if you or an authorized person is speaking**. That makes your smart home both convenient and child-safe.
-
+Welcome to your private Alexa Skill "Smarthome ID"! This skill lets you trigger specific Home Assistant scripts using natural voice commands like “Alexa, ask "our home", "unser Haus" , "..." to trigger home assistant scripts — **only if you or an authorized person is speaking**. That makes your smart home safer - and more "child-secure".
 ---
 
 ## ✅ What does this skill do?
@@ -44,7 +43,7 @@ smarthome-id-skill/
 1. Go to the [Alexa Developer Console](https://developer.amazon.com/alexa/console/ask)
 2. Click **"Create Skill"**
 3. Name: `Smarthome ID` (or any name you prefer)
-4. Language: **German (DE)**
+4. Language: **German (DE)** (just in my case...)
 5. Skill type: **Custom**
 6. Hosting: **Provision your own** (you’ll use AWS Lambda)
 7. Click **Create Skill**
@@ -101,9 +100,9 @@ Tip: You’ll find your `personId` in the first CloudWatch log entry when the sk
 3. Say: `Alexa, ask Smarthome ID to turn on the lights`
 
 If your voice is recognized, Alexa will reply:
-> “Okay Nick, I’ve turned on the lights.”
+> “Okay [Name]...”
 
-If your kids speak or no person ID is found:
+If another person without an VoiceID is recognized:
 > “You are not authorized to perform this action.”
 
 ---
@@ -137,6 +136,7 @@ Repeat this process for each person (e.g. your partner) using their own Amazon a
 
 - Use a restricted Home Assistant user for the access token
 - Voice recognition (`personId`) only works if Voice ID is enabled in the Alexa app
+- this is not 100% secure... so act responsible if you add things like open the garage or main door
 
 ---
 
