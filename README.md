@@ -18,7 +18,7 @@ Welcome to your private Alexa Skill "Smarthome ID"! This skill lets you trigger 
 ```bash
 smarthome-id-skill/
 ├── lambda/
-│   └── index.js              # Node.js Lambda function
+│   └── index.mjs              # Node.js Lambda function
 ├── skill/
 │   └── interactionModel.json # Alexa intent model
 └── README.md                 # This guide
@@ -59,7 +59,7 @@ smarthome-id-skill/
 1. Go to [AWS Lambda](https://console.aws.amazon.com/lambda/home)
 2. Create a new function, e.g., `AlexaSmarthomeID`
 3. Runtime: **Node.js 20**
-4. In the `Code` tab, paste the contents of `lambda/index.js`
+4. In the `Code` tab, paste the contents of `lambda/index.mjs`
 5. Under “Configuration > Permissions”, ensure the Lambda has no VPC assigned
 
 #### 3.1 Customize your Lambda code
