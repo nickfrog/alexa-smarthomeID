@@ -1,58 +1,61 @@
-// 🔧 Lambda function for Alexa Smart Home Skill with Voice ID support
+import https from "https";
 
-const https = require("https");
+// 🔐 Home Assistant Token & Nabu Casa Hostname
+const token = "xxx"; // <<< ersetzen!
+const nabuCasaHost = "xxx.ui.nabu.casa"; // <<< Ersetzen
 
-// Replace with your actual values:
-const token = "YOUR_LONG_LIVED_ACCESS_TOKEN";
-const hostname = "your-nabu-url.ui.nabu.casa";
+// 👥 Personenerkennung
+const authorizedPersons = [
+  "amzn1.ask.person....", // <<< Ersetzen
+  "amzn1.ask.person.DEINID2"  // <<< Ersetzen
+];
 
 const personNames = {
-  "amzn1.ask.person.XXX1": "Your Name",
-  "amzn1.ask.person.XXX2": "Partner"
+  "amzn1.ask.person.XYZ": "Name1", // <<< Ersetzen
+  "amzn1.ask.person.XYZ": "Name2" // <<< Ersetzen
 };
 
+// 🎛️ Mapping Sprachbefehl → Skript
 const scriptMapping = {
-  "turn on the lights": "script.turn_on_lights",
-  "good night": "script.good_night",
-  "shut everything": "script.shut_everything"
+  "hell": "script.nfcscript",
+  "gute nacht": "script.gute_nacht",
+  "musik": "script.musik_start",
+  "kino": "script.kino_modus" // <<< Ersetzen durch deine Scripte
 };
 
-exports.handler = async (event) => {
-  console.log("=== Alexa Skill triggered ===");
+// 🧠 Haupt-Handler
+export const handler = async (event) => {
+  console.log("=== Skill ausgelöst ===");
   console.log(JSON.stringify(event, null, 2));
 
-  let personId = null;
-  try {
-    personId = event.context.System.person.personId;
-    console.log("Detected personId:", personId);
-  } catch {
-    console.log("⚠️ No personId detected");
+  const personId = event.context?.System?.person?.personId || null;
+  const personName = personNames[personId] || "jemand";
+
+  if (!personId || !authorizedPersons.includes(personId)) {
+    console.log(`❌ Zugriff verweigert für ${personId}`);
+    return speak("Du bist nicht berechtigt, das auszuführen.");
   }
 
-  if (!personId || !(personId in personNames)) {
-    console.log("❌ Unauthorized access");
-    return speak("You are not authorized to perform this action.");
-  }
+  const command = event.request?.intent?.slots?.command?.value?.toLowerCase() || "";
+  console.log(`${personName} sagt:`, command);
 
-  const command = event.request.intent.slots.command.value.toLowerCase();
-  const scriptId = scriptMapping[command];
-
-  if (!scriptId) {
-    console.log("❌ Unknown command:", command);
-    return speak("I didn't recognize that command.");
+  const scriptEntityId = scriptMapping[command];
+  if (!scriptEntityId) {
+    console.log("❌ Unbekanntes Kommando:", command);
+    return speak("Dieses Kommando kenne ich leider nicht.");
   }
 
   try {
-    await callHomeAssistant(scriptId, token);
-    const name = personNames[personId];
-    console.log("✅ Executed script for", name);
-    return speak(`Okay ${name}, I have executed the command.`);
+    await callHomeAssistant(scriptEntityId, token);
+    console.log(`✅ ${personName} hat '${command}' ausgelöst → ${scriptEntityId}`);
+    return speak(`Gerne ${personName}.`);
   } catch (error) {
-    console.error("❌ API call failed:", error);
-    return speak("An error occurred while executing the command.");
+    console.error("❌ Fehler beim API-Aufruf:", error);
+    return speak("Beim Ausführen ist ein Fehler passiert.");
   }
 };
 
+// 💬 Sprachantwort erzeugen
 function speak(text) {
   return {
     version: "1.0",
@@ -66,12 +69,13 @@ function speak(text) {
   };
 }
 
+// 🔁 API-Aufruf an Home Assistant
 function callHomeAssistant(entityId, token) {
   return new Promise((resolve, reject) => {
     const data = JSON.stringify({ entity_id: entityId });
 
     const options = {
-      hostname,
+      hostname: nabuCasaHost,
       port: 443,
       path: "/api/services/script/turn_on",
       method: "POST",
