@@ -141,3 +141,8 @@ Repeat this process for each person (e.g. your partner) using their own Amazon a
 ---
 
 Enjoy your safe and personalized smart home automation! 💡🧒🏻🔒
+
+<img width="1142" height="2475" alt="Bild1" src="https://github.com/user-attachments/assets/4076c874-2cd2-4fcd-8341-6ed9b1858c2c" />
+<img width="1290" height="2796" alt="IMG_6809" src="https://github.com/user-attachments/assets/e9af36a9-5b24-4570-a3a1-6dd2ee6de338" />
+
+
