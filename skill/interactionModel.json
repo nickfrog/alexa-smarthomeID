@@ -1,38 +1,68 @@
 {
-  "interactionModel": {
-    "languageModel": {
-      "invocationName": "smarthome id",
-      "intents": [
-        {
-          "name": "AMAZON.CancelIntent",
-          "samples": []
-        },
-        {
-          "name": "AMAZON.HelpIntent",
-          "samples": []
-        },
-        {
-          "name": "AMAZON.StopIntent",
-          "samples": []
-        },
-        {
-          "name": "AMAZON.NavigateHomeIntent",
-          "samples": []
-        },
-        {
-          "name": "ControlIntent",
-          "slots": [
-            {
-              "name": "command",
-              "type": "AMAZON.SearchQuery"
-            }
-          ],
-          "samples": [
-            "{command}"
-          ]
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "unserem haus", 
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "ControlIntent",
+                    "slots": [
+                        {
+                            "name": "command",
+                            "type": "CommandType"
+                        }
+                    ],
+                    "samples": [
+                        "mach {command}",
+                        "bitte {command}",
+                        "{command}",
+                        "{command} starten",
+                        "starte {command}"
+                    ]
+                }
+            ],
+            "types": [
+                {
+                    "name": "CommandType",
+                    "values": [
+                        {
+                            "name": {
+                                "value": "hell"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "gute nacht"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "musik"
+                            }
+                        },
+                        {
+                            "name": {
+                                "value": "kino"
+                            }
+                        }
+                    ]
+                }
+            ]
         }
-      ],
-      "types": []
     }
-  }
 }
