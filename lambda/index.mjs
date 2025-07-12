@@ -6,18 +6,18 @@ const nabuCasaHost = "xxx.ui.nabu.casa"; // <<< Ersetzen
 
 // 👥 Personenerkennung
 const authorizedPersons = [
-  "amzn1.ask.person....", // <<< Ersetzen
-  "amzn1.ask.person.DEINID2"  // <<< Ersetzen
+  "amzn1.ask.person.XYZ", // <<< Ersetzen
+  "amzn1.ask.person.ABC"  // <<< Ersetzen
 ];
 
 const personNames = {
   "amzn1.ask.person.XYZ": "Name1", // <<< Ersetzen
-  "amzn1.ask.person.XYZ": "Name2" // <<< Ersetzen
+  "amzn1.ask.person.ABC": "Name2" // <<< Ersetzen
 };
 
 // 🎛️ Mapping Sprachbefehl → Skript
 const scriptMapping = {
-  "hell": "script.nfcscript",
+  "hell": "script.machhell",
   "gute nacht": "script.gute_nacht",
   "musik": "script.musik_start",
   "kino": "script.kino_modus" // <<< Ersetzen durch deine Scripte
